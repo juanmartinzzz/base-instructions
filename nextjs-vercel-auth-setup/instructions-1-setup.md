@@ -12,7 +12,7 @@ cd my-nextjs-app
 ## Step 2: Install Required Dependencies
 
 ```bash
-npm install next-auth @next-auth/prisma-adapter prisma @prisma/client redis @upstash/redis bcryptjs framer-motion lucide-react @types/bcryptjs
+npm install next-auth redis @upstash/redis bcryptjs framer-motion lucide-react @types/bcryptjs
 ```
 
 For development:
@@ -32,6 +32,7 @@ Update the following variables in `.env.local`:
 - `NEXTAUTH_URL`: Your application URL (localhost for development, your Vercel URL for production)
 - `NEXTAUTH_SECRET`: Generate a secure random string (you can use `openssl rand -base64 32`)
 - `REDIS_URL`: Your Redis connection URL
+- `REDIS_TOKEN`: Your Redis token (if using Upstash or similar)
 
 ## Step 4: Configure Tailwind CSS with Custom Theme
 
@@ -63,48 +64,7 @@ module.exports = {
 }
 ```
 
-## Step 5: Set up Prisma with Redis
-
-Create `prisma/schema.prisma`:
-
-```prisma
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql" // or your preferred database
-  url      = env("DATABASE_URL")
-}
-
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-enum Role {
-  USER
-  ADMIN
-  MODERATOR
-}
-```
-
-Note: For Redis-only storage, you might want to create custom models or use Redis directly for session storage.
-
-## Step 6: Set up NextAuth.js Configuration
+## Step 5: Set up NextAuth.js Configuration
 
 Create `src/lib/auth.ts`:
 
@@ -179,7 +139,7 @@ export const authOptions: NextAuthOptions = {
 }
 ```
 
-## Step 7: Create API Routes
+## Step 6: Create API Routes
 
 Create `src/app/api/auth/[...nextauth]/route.ts`:
 
@@ -241,7 +201,7 @@ export async function POST(request: NextRequest) {
 }
 ```
 
-## Step 8: Create Authentication Pages
+## Step 7: Create Authentication Pages
 
 Create `src/app/auth/signin/page.tsx`:
 
@@ -438,7 +398,7 @@ export default function SignUp() {
 }
 ```
 
-## Step 9: Set up Session Provider
+## Step 8: Set up Session Provider
 
 Update `src/app/layout.tsx`:
 
@@ -488,7 +448,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 }
 ```
 
-## Step 10: Create Protected Routes and Role-Based Access
+## Step 9: Create Protected Routes and Role-Based Access
 
 Create `src/components/ProtectedRoute.tsx`:
 
@@ -538,7 +498,7 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
 }
 ```
 
-## Step 11: Add Framer Motion Animations
+## Step 10: Add Framer Motion Animations
 
 Create `src/components/AnimatedComponent.tsx`:
 
@@ -565,7 +525,7 @@ export function AnimatedComponent({ children, delay = 0 }: AnimatedComponentProp
 }
 ```
 
-## Step 12: Add Lucide Icons
+## Step 11: Add Lucide Icons
 
 Create `src/components/Icon.tsx`:
 
@@ -597,7 +557,7 @@ export function Icon({ name, size = 24, className }: IconProps) {
 }
 ```
 
-## Step 13: Update Main Page
+## Step 12: Update Main Page
 
 Update `src/app/page.tsx`:
 
@@ -630,7 +590,7 @@ export default async function Home() {
 }
 ```
 
-## Step 14: Configure Vercel Deployment
+## Step 13: Configure Vercel Deployment
 
 1. Push your code to GitHub
 2. Connect your repository to Vercel
@@ -639,7 +599,7 @@ export default async function Home() {
    - `NEXTAUTH_SECRET`: Same as local
    - `REDIS_URL`: Your Redis URL
 
-## Step 15: Test the Application
+## Step 14: Test the Application
 
 ```bash
 npm run dev
