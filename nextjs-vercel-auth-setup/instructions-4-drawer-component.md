@@ -24,12 +24,12 @@ Before implementing the Drawer component, ensure you have:
 
 ### Step 1: Create UI Directory Structure
 ```bash
-mkdir -p components/ui
+mkdir -p src/components/ui
 ```
 
 ## Step 2: Implement the Drawer Component
 
-Create `components/ui/Drawer.tsx`:
+Create `src/components/ui/Drawer.tsx`:
 
 ```typescript
 'use client';
@@ -146,7 +146,7 @@ export function Drawer({
 
 ## Step 3: Create Index File for Easy Imports
 
-Create `components/ui/index.ts` to export the Drawer component:
+Create `src/components/ui/index.ts` to export the Drawer component:
 
 ```typescript
 export { Drawer } from './Drawer';

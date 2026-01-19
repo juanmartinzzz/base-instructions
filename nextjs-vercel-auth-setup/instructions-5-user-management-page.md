@@ -14,7 +14,7 @@ The user management page provides a comprehensive interface for:
 ## Prerequisites
 
 - Next.js project with Tailwind CSS
-- Interaction components from `components/interaction/` (Button, Input, PillList)
+- Interaction components from `src/components/interaction/` (Button, Input, PillList)
 - Lucide icons installed
 - User data structure and API endpoints
 - Auth setup from previous instructions
@@ -70,7 +70,7 @@ interface UserRowProps {
 
 ## Step 2: Create User Row Component
 
-Create `components/ui/UserRow.tsx`:
+Create `src/components/ui/UserRow.tsx`:
 
 ```typescript
 import { ChevronDown, ChevronRight, Edit, Trash2, Mail, Shield } from 'lucide-react';
@@ -233,7 +233,7 @@ export default UserRow;
 
 ## Step 3: Create User Filters Component
 
-Create `components/ui/UserFilters.tsx`:
+Create `src/components/ui/UserFilters.tsx`:
 
 ```typescript
 import { Search, X } from 'lucide-react';
@@ -352,11 +352,11 @@ Create `pages/admin/users.tsx` (or `app/admin/users/page.tsx` for App Router):
 ```typescript
 import { useState, useEffect } from 'react';
 import { Plus, Users } from 'lucide-react';
-import { Button } from '../../components/interaction';
-import UserRow from '../../components/ui/UserRow';
-import EntityPagination from '../../components/ui/EntityPagination';
-import UserFilters from '../../components/ui/UserFilters';
-import { User, UserFilters as UserFiltersType, PaginationState } from '../../components/ui/types';
+import { Button } from '../../../src/components/interaction';
+import UserRow from '../../../src/components/ui/UserRow';
+import EntityPagination from '../../../src/components/ui/EntityPagination';
+import UserFilters from '../../../src/components/ui/UserFilters';
+import { User, UserFilters as UserFiltersType, PaginationState } from '../../../src/components/ui/types';
 
 // Mock data - replace with actual API calls
 const mockUsers: User[] = [
@@ -616,7 +616,7 @@ Add the user management page to your navigation. Update your navigation componen
 Create `lib/user-service.ts` with user management functions:
 
 ```typescript
-import { User, UserFilters, PaginationOptions } from '../components/ui/types';
+import { User, UserFilters, PaginationOptions } from '../../../src/components/ui/types';
 
 export async function getUsers(options: PaginationOptions & { filters?: UserFilters }): Promise<{
   users: User[];

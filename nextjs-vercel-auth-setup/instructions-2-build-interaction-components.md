@@ -12,12 +12,12 @@ This guide provides step-by-step instructions to create reusable interaction com
 
 ### Step 1: Create Components Directory Structure
 ```bash
-mkdir -p components/interaction
-mkdir -p components/ui
+mkdir -p src/components/interaction
+mkdir -p src/components/ui
 ```
 
 ### Step 2: Create Type Definitions
-Create `components/interaction/types.ts`:
+Create `src/components/interaction/types.ts`:
 
 ```typescript
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
@@ -68,7 +68,7 @@ export interface PillProps extends BaseProps {
 ## Component Implementations
 
 ### Step 3: Create Button Component
-Create `components/interaction/Button.tsx`:
+Create `src/components/interaction/Button.tsx`:
 
 ```typescript
 import { forwardRef } from 'react';
@@ -118,7 +118,7 @@ export default Button;
 ```
 
 ### Step 4: Create Input Component
-Create `components/interaction/Input.tsx`:
+Create `src/components/interaction/Input.tsx`:
 
 ```typescript
 import { forwardRef, useState } from 'react';
@@ -186,7 +186,7 @@ export default Input;
 ```
 
 ### Step 5: Create Textarea Component (Auto-Resize)
-Create `components/interaction/Textarea.tsx`:
+Create `src/components/interaction/Textarea.tsx`:
 
 ```typescript
 import { forwardRef, useEffect, useRef, useState } from 'react';
@@ -270,7 +270,7 @@ export default Textarea;
 ```
 
 ### Step 6: Create Pill Component
-Create `components/interaction/Pill.tsx`:
+Create `src/components/interaction/Pill.tsx`:
 
 ```typescript
 import { forwardRef } from 'react';
@@ -314,7 +314,7 @@ export default Pill;
 ```
 
 ### Step 7: Create PillList Component
-Create `components/interaction/PillList.tsx`:
+Create `src/components/interaction/PillList.tsx`:
 
 ```typescript
 import { useState } from 'react';
@@ -379,7 +379,7 @@ export default PillList;
 ```
 
 ### Step 8: Create Index File for Easy Imports
-Create `components/interaction/index.ts`:
+Create `src/components/interaction/index.ts`:
 
 ```typescript
 export { default as Button } from './Button';
@@ -393,7 +393,7 @@ export type { ButtonProps, InputProps, TextareaProps, PillProps } from './types'
 ## Usage Examples
 
 ### Step 9: Create Example Usage Component
-Create `components/ui/ComponentExamples.tsx`:
+Create `src/components/ui/ComponentExamples.tsx`:
 
 ```typescript
 import {
@@ -520,7 +520,7 @@ Create or update a page to display the components:
 
 ```typescript
 // pages/components.tsx or app/components/page.tsx
-import ComponentExamples from '../components/ui/ComponentExamples';
+import ComponentExamples from '../src/components/ui/ComponentExamples';
 
 export default function ComponentsPage() {
   return <ComponentExamples />;
